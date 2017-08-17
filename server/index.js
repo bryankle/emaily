@@ -23,5 +23,7 @@ app.get(
     })
 )
 
+app.get('/auth/google/callback', passport.authenticate('google')) // Route after user authenticates with Google OAuth
+
 const PORT = process.env.PORT || 5000; // Use Heroku assigned port for production and port 5000 for development
 app.listen(process.env.PORT || 5000);
