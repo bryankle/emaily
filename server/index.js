@@ -1,4 +1,7 @@
 const express = require('express'); // Common JS convention for back end; different from ES6 'require' in front end
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 const app = express(); // Generates single Express application; most applications will contain 1 application, some can contain more. App listens to incoming requests that are being routed to expres side from node side
 
 
