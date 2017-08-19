@@ -7,26 +7,7 @@ const keys = require('./config/keys');
 const app = express(); // Generates single Express application; most applications will contain 1 application, some can contain more. App listens to incoming requests that are being routed to expres side from node side
 
 
-passport.use(new GoogleStrategy({
-        clientID: keys.googleClientID,
-        clientSecret: keys.googleClientSecret,
-        callbackURL: '/auth/google/callback' // User returning from Google
-    }, (accessToken, refreshToken, profile, done) => {
-        console.log('accessToken', accessToken);
-        console.log('refresh token', refreshToken);
-        console.log('profile:', profile);
-        
-    })
-); // Passport becoming aware of new strategy (Google). Creates instance of Google authentication
 
-app.get(
-    '/auth/google', 
-    passport.authenticate('google', { // GoogleStrategy is internally known as 'google', therefore passport will know to refer to GoogleStrategy when the string 'google' is applied
-        scope: ['profile', 'email'] // Specifies to Google server what access we are requesting 
-    })
-)
-
-app.get('/auth/google/callback', passport.authenticate('google')) // Route after user authenticates with Google OAuth
 
 const PORT = process.env.PORT || 5000; // Use Heroku assigned port for production and port 5000 for development
 app.listen(process.env.PORT || 5000);
