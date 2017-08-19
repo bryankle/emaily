@@ -1,3 +1,7 @@
+const passport = require('passport'); // General passport code
+const GoogleStrategy = require('passport-google-oauth20').Strategy; // Passport specific to Google
+const keys = require('./config/keys');
+
 passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
