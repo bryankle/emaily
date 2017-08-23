@@ -17,11 +17,13 @@ passport.use(new GoogleStrategy({
         .then((existingUser) => {
             if (existingUser) {
                 // we already have a record with the given profile ID
-                
+                done(null, existingUser); // First argument is error object, since this is successful, null is passed as error. Second argument returns existing user
             }
             else {
                 // we don't haev a user record with this ID, make a new record
-                new User({ googleId: profile.id }).save(); // Creates new instance of a user and .save to persist data to database from Express API
+                new User({ googleId: profile.id }) // Creates new instance of a user and 
+                    .save() //.save to persist data to database from Express API
+                    .then(user => done(null, user)) // Working with 2 separate instances of user, the first one being created and saved to mongoose and second instance 'user' may have additional changes while user was being saved. Always make use of the callback
             }
         })
 
