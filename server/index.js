@@ -1,8 +1,8 @@
 const express = require('express'); // Common JS convention for back end; different from ES6 'require' in front end
 const mongoose = require('mongoose'); 
 const keys = require('./config/keys'); // Importing keys from config
-require('./services/passport'); // Condensed because we do not require anything specific and only need for the file to run
 require('./models/User');
+require('./services/passport'); // Condensed because we do not require anything specific and only need for the file to run
 mongoose.connect(keys.mongoURI) // Mongo username and password stored in config directory
 
 const app = express(); // Generates single Express application; most applications will contain 1 application, some can contain more. App listens to incoming requests that are being routed to expres side from node side
