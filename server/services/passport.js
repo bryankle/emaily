@@ -13,6 +13,17 @@ passport.use(new GoogleStrategy({
     // console.log('accessToken', accessToken);
     // console.log('refresh token', refreshToken);
     // console.log('profile:', profile);
-    new User({ googleId: profile.id }).save(); // Creates new instance of a user and .save to persist data to database from Express API
+    User.findOne({ googleId: profile.id })
+        .then((existingUser) => {
+            if (existingUser) {
+                // we already have a record with the given profile ID
+                
+            }
+            else {
+                // we don't haev a user record with this ID, make a new record
+                new User({ googleId: profile.id }).save(); // Creates new instance of a user and .save to persist data to database from Express API
+            }
+        })
+
 })
 ); // Passport becoming aware of new strategy (Google). Creates instance of Google authentication
