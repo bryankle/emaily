@@ -11,4 +11,7 @@ module.exports = (app) => {
     
     app.get('/auth/google/callback', passport.authenticate('google')) // Route after user authenticates with Google OAuth
 
-}
+    app.get('/api/current_user', (req, res) => {
+        res.send(req.user);
+    });
+};
