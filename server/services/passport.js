@@ -5,6 +5,11 @@ const keys = require('../config/keys');
 
 const User = mongoose.model('users'); // Model class
 
+passport.serializeUser((user, done) => { // User model here same as user just saved; see below
+    done(null, user.id); // No error  and logs user.id
+})
+
+
 passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
