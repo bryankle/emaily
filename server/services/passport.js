@@ -9,6 +9,13 @@ passport.serializeUser((user, done) => { // User model here same as user just sa
     done(null, user.id); // No error  and logs user.id
 })
 
+passport.deserializeUser((id, done) => {
+    User.findById(id)
+        .then((user) => {
+            done(null, user)
+        })
+})
+
 
 passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
