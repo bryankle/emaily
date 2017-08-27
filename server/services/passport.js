@@ -18,27 +18,21 @@ passport.deserializeUser((id, done) => {
 
 
 passport.use(new GoogleStrategy({
-    clientID: keys.googleClientID,
-    clientSecret: keys.googleClientSecret,
-    callbackURL: '/auth/google/callback', // User returning from Google,
-    proxy:true
-}, (accessToken, refreshToken, profile, done) => {
+        clientID: keys.googleClientID,
+        clientSecret: keys.googleClientSecret,
+        callbackURL: '/auth/google/callback', // User returning from Google,
+        proxy:true
+    }, 
+    async (accessToken, refreshToken, profile, done) => {
     // console.log('accessToken', accessToken);
     // console.log('refresh token', refreshToken);
     // console.log('profile:', profile);
-    User.findOne({ googleId: profile.id })
-        .then((existingUser) => {
+    const existingUser = await User.findOne({ googleId: profile.id })
             if (existingUser) {
-                // we already have a record with the given profile ID
-                done(null, existingUser); // First argument is error object, since this is successful, null is passed as error. Second argument returns existing user
+                return done(null, existingUser); // First argument is error object, since this is successful, null is passed as error. Second argument returns existing user
             }
-            else {
-                // we don't haev a user record with this ID, make a new record
-                new User({ googleId: profile.id }) // Creates new instance of a user and 
-                    .save() //.save to persist data to database from Express API
-                    .then(user => done(null, user)) // Working with 2 separate instances of user, the first one being created and saved to mongoose and second instance 'user' may have additional changes while user was being saved. Always make use of the callback
-            }
-        })
-
-})
+            const user = await new User({ googleId: profile.id }).save() //Promise 2; .save to persist data to database from Express API
+            done(null, user);
+        }
+    )
 ); // Passport becoming aware of new strategy (Google). Creates instance of Google authentication
