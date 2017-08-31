@@ -8,7 +8,7 @@
     },
     "/api/*": {
       "target": "http://localhost:5000"
-    },
+    }
   },
   "dependencies": {
     "materialize-css": "^0.100.2",

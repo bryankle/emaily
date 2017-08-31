@@ -11,6 +11,8 @@ import reducers from './reducers';
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
-    <Provider stor={store}><App /></Provider>, 
+    <Provider store={store}>
+        <App />
+    </Provider>, 
     document.querySelector('#root')
 ); // Takes 2 parameters, route component and where the component is going to be rendered
