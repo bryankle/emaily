@@ -2,8 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Header extends Component {
+    renderContent() { // Helper
+        console.log(this.props.auth);
+        switch (this.props.auth) {
+            case null:
+                return 'Still deciding';
+            case false:
+                return 'Logged out';
+            default:
+                return 'Logged in';
+        }
+    }
+
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         return (
             <nav>
                 <div className="nav-wrapper">
@@ -11,9 +23,10 @@ class Header extends Component {
                         Emaily
                     </a>
                     <ul className="right">
-                        <li>
+                        {this.renderContent()}
+                        {/* <li>
                             <a>Login with Google</a>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </nav>
