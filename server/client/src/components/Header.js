@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
     renderContent() { // Helper
-        console.log(this.props.auth);
+        console.log(this.props);
         switch (this.props.auth) {
             case null:
                 return 'Still deciding';
